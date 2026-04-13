@@ -1,4 +1,27 @@
 import { useEffect, useRef } from 'react'
+import fromOvenIcon from '../assets/tabslogo/From the oven.webp'
+import coldIcon from '../assets/tabslogo/cold.webp'
+import hotIcon from '../assets/tabslogo/Hot aptiezer.webp'
+import signatureIcon from '../assets/tabslogo/Signatur sandwish.webp'
+import charcoalIcon from '../assets/tabslogo/Charcol grill.webp'
+import ustaSpecialIcon from '../assets/tabslogo/Usta special dishes.webp'
+import traditionalIcon from '../assets/tabslogo/Traditional oven dishis .webp'
+import sideIcon from '../assets/tabslogo/Side dish.webp'
+import dessertIcon from '../assets/tabslogo/Kunafa.webp'
+import beveragesIcon from '../assets/tabslogo/Bavareg.webp'
+
+const tabIcons = {
+  'From the Stone Oven': fromOvenIcon,
+  'Cold Appetizers': coldIcon,
+  'Hot Appetizers': hotIcon,
+  'Signature Sandwiches': signatureIcon,
+  'Charcoal Grills': charcoalIcon,
+  'Usta Special Dishes': ustaSpecialIcon,
+  'Traditional Oven Dishes': traditionalIcon,
+  'Side Dishes': sideIcon,
+  'Turkish Desserts': dessertIcon,
+  Beverages: beveragesIcon,
+}
 
 function MenuTabs({ categories, activeCategory, onCategoryChange }) {
   const tabsContainerRef = useRef(null)
@@ -24,6 +47,7 @@ function MenuTabs({ categories, activeCategory, onCategoryChange }) {
     >
       {categories.map((category) => {
         const isActive = category === activeCategory
+        const icon = tabIcons[category]
 
         return (
           <button
@@ -40,7 +64,17 @@ function MenuTabs({ categories, activeCategory, onCategoryChange }) {
                 : 'border-[#725b52]/45 bg-[#261e19] text-[#f1e4de] hover:border-[#bc372b] hover:bg-[#332721]'
             }`}
           >
-            {category}
+            <span className="inline-flex items-center gap-2">
+              {icon ? (
+                <img
+                  src={icon}
+                  alt=""
+                  aria-hidden="true"
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+              ) : null}
+              {category}
+            </span>
           </button>
         )
       })}

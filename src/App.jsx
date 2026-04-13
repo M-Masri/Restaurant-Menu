@@ -73,9 +73,11 @@ function App() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-x-clip px-4 py-10 text-[#fefdfe] sm:px-8">
-      <div className="pointer-events-none absolute left-[-100px] top-[-120px] h-72 w-72 rounded-full bg-[#bc372b]/30 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-[-80px] right-[-100px] h-72 w-72 rounded-full bg-[#725b52]/30 blur-3xl" />
+    <main className="relative overflow-x-clip px-4 pb-4 pt-10 text-[#fefdfe] sm:px-8">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-100px] top-[-120px] h-72 w-72 rounded-full bg-[#bc372b]/30 blur-3xl" />
+        <div className="absolute bottom-0 right-[-100px] h-72 w-72 rounded-full bg-[#725b52]/30 blur-3xl" />
+      </div>
 
       <div className="mx-auto w-full max-w-[1500px]">
         <section className="mx-auto max-w-3xl text-center">
@@ -96,14 +98,15 @@ function App() {
           </p>
         </section>
 
-        <section className="mt-10 rounded-3xl border border-[#725b52]/40 bg-[#1b1613]/78 p-5 shadow-[0_14px_38px_rgba(0,0,0,0.35)] backdrop-blur-md sm:p-7">
-          <div className="sticky top-3 z-30 -mx-2 rounded-2xl border border-[#725b52]/40 bg-[#120f0d]/88 px-2 py-3 backdrop-blur sm:-mx-3 sm:px-3">
-            <MenuTabs
-              categories={menuCategories}
-              activeCategory={activeCategory}
-              onCategoryChange={handleCategoryChange}
-            />
-          </div>
+        <div className="sticky top-3 z-50 mt-10 rounded-3xl border border-[#725b52]/40 bg-[#120f0d]/88 px-2 py-3 backdrop-blur sm:px-3">
+          <MenuTabs
+            categories={menuCategories}
+            activeCategory={activeCategory}
+            onCategoryChange={handleCategoryChange}
+          />
+        </div>
+
+        <section className="mt-5 rounded-3xl border border-[#725b52]/40 bg-[#1b1613]/78 p-5 shadow-[0_14px_38px_rgba(0,0,0,0.35)] backdrop-blur-md sm:p-7">
 
           <div className="mt-7 space-y-16">
             {groupedItems.map(({ category, items }) => (
@@ -116,7 +119,7 @@ function App() {
                 className="scroll-mt-36"
               >
                 <h2 className="sr-only">{category}</h2>
-                <div className="grid justify-items-center gap-4 md:grid-cols-3">
+                <div className="grid grid-cols-2 justify-items-center gap-4 md:grid-cols-3">
                   {items.map((item) => (
                     <FoodCard key={item.id} item={item} />
                   ))}

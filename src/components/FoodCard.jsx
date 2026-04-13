@@ -14,9 +14,6 @@ function FoodCard({ item }) {
             Photo Coming Soon
           </div>
         )}
-        <span className="absolute left-3 top-3 rounded-full bg-[#bc372b]/95 px-3 py-1 text-xs font-semibold text-[#ffffff]">
-          {item.price}
-        </span>
       </div>
 
       <div className="p-4">
@@ -25,9 +22,12 @@ function FoodCard({ item }) {
           <p className="mt-2 text-sm leading-5 text-[#d5c4bb]">{item.description}</p>
         ) : null}
 
-        <div className="mt-4 flex items-center">
+        <div className="mt-4 flex items-center justify-between gap-2">
           <span className="rounded-full bg-[#3a2c24] px-3 py-1 text-xs font-medium text-[#f1e4de]">
             {item.category}
+          </span>
+          <span className="rounded-full bg-[#bc372b]/95 px-3 py-1 text-xs font-semibold text-[#ffffff]">
+            {item.price}
           </span>
         </div>
       </div>

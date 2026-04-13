@@ -11,19 +11,16 @@
   --pure-white: #ffffff;
 }
 
-* {
-  box-sizing: border-box;
+html,
+body,
+#root {
+  margin: 0px !important;
+  padding: 0px !important;
+  min-height: 100%;
 }
 
 body {
-  margin: 0;
-  min-width: 320px;
   background: #120f0d;
-  color: var(--soft-white);
-}
-
-#root {
-  min-height: 100vh;
 }
 
 h1,
@@ -34,10 +31,15 @@ h3 {
 }
 
 main {
+  position: relative;
   background-image:
+    linear-gradient(rgba(18, 15, 13, 0.82), rgba(16, 13, 11, 0.86)),
     radial-gradient(circle at 5% 10%, rgba(98, 71, 59, 0.26), transparent 26%),
     radial-gradient(circle at 95% 88%, rgba(114, 91, 82, 0.22), transparent 25%),
-    linear-gradient(180deg, #1b1613 0%, #120f0d 56%, #100d0b 100%);
+    url('./assets/bac.jpeg');
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-position: center, 5% 10%, 95% 88%, center;
+  background-size: cover, auto, auto, 980px auto;
 }
 
 @keyframes fade-in {

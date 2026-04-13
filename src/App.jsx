@@ -6,7 +6,9 @@ import logoImage from './assets/logo.jpeg'
 
 function App() {
   const [activeCategory, setActiveCategory] = useState(menuCategories[0])
+  const [isTabsStuck, setIsTabsStuck] = useState(false)
   const sectionRefs = useRef({})
+  const tabsBarRef = useRef(null)
 
   const groupedItems = useMemo(() => {
     return menuCategories.map((category) => ({
@@ -61,6 +63,27 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    const updateStickyState = () => {
+      const tabsBar = tabsBarRef.current
+      if (!tabsBar) {
+        return
+      }
+
+      const isStuck = tabsBar.getBoundingClientRect().top <= 12
+      setIsTabsStuck((prev) => (prev === isStuck ? prev : isStuck))
+    }
+
+    updateStickyState()
+    window.addEventListener('scroll', updateStickyState, { passive: true })
+    window.addEventListener('resize', updateStickyState)
+
+    return () => {
+      window.removeEventListener('scroll', updateStickyState)
+      window.removeEventListener('resize', updateStickyState)
+    }
+  }, [])
+
   const handleCategoryChange = (category) => {
     setActiveCategory(category)
 
@@ -98,7 +121,14 @@ function App() {
           </p>
         </section>
 
-        <div className="sticky top-3 z-50 mt-10 rounded-3xl border border-[#725b52]/40 bg-[#120f0d]/88 px-2 py-3 backdrop-blur sm:px-3">
+        <div
+          ref={tabsBarRef}
+          className={`sticky top-3 z-50 mt-10 rounded-3xl border border-[#725b52]/40 bg-[#120f0d]/88 px-2 py-3 backdrop-blur sm:px-3 ${
+            isTabsStuck
+              ? 'before:pointer-events-none before:absolute before:-top-3 before:left-0 before:right-0 before:h-3 before:bg-[#120f0d]/50 before:backdrop-blur-md'
+              : ''
+          }`}
+        >
           <MenuTabs
             categories={menuCategories}
             activeCategory={activeCategory}
@@ -106,7 +136,7 @@ function App() {
           />
         </div>
 
-        <section className="mt-5 rounded-3xl border border-[#725b52]/40 bg-[#1b1613]/78 p-5 shadow-[0_14px_38px_rgba(0,0,0,0.35)] backdrop-blur-md sm:p-7">
+        <section className="mt-5 rounded-3xl border border-[#725b52]/40 bg-[#1b1613]/78 p-4 shadow-[0_14px_38px_rgba(0,0,0,0.35)] backdrop-blur-md sm:p-7">
 
           <div className="mt-7 space-y-16">
             {groupedItems.map(({ category, items }) => (
@@ -119,7 +149,7 @@ function App() {
                 className="scroll-mt-36"
               >
                 <h2 className="sr-only">{category}</h2>
-                <div className="grid grid-cols-2 justify-items-center gap-4 md:grid-cols-3">
+                <div className="grid grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 md:grid-cols-3">
                   {items.map((item) => (
                     <FoodCard key={item.id} item={item} />
                   ))}

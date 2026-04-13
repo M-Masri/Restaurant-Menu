@@ -6,9 +6,7 @@ import logoImage from './assets/logo.jpeg'
 
 function App() {
   const [activeCategory, setActiveCategory] = useState(menuCategories[0])
-  const [isTabsStuck, setIsTabsStuck] = useState(false)
   const sectionRefs = useRef({})
-  const tabsBarRef = useRef(null)
 
   const groupedItems = useMemo(() => {
     return menuCategories.map((category) => ({
@@ -63,27 +61,6 @@ function App() {
     }
   }, [])
 
-  useEffect(() => {
-    const updateStickyState = () => {
-      const tabsBar = tabsBarRef.current
-      if (!tabsBar) {
-        return
-      }
-
-      const isStuck = tabsBar.getBoundingClientRect().top <= 12
-      setIsTabsStuck((prev) => (prev === isStuck ? prev : isStuck))
-    }
-
-    updateStickyState()
-    window.addEventListener('scroll', updateStickyState, { passive: true })
-    window.addEventListener('resize', updateStickyState)
-
-    return () => {
-      window.removeEventListener('scroll', updateStickyState)
-      window.removeEventListener('resize', updateStickyState)
-    }
-  }, [])
-
   const handleCategoryChange = (category) => {
     setActiveCategory(category)
 
@@ -121,14 +98,7 @@ function App() {
           </p>
         </section>
 
-        <div
-          ref={tabsBarRef}
-          className={`sticky top-3 z-50 mt-10 rounded-3xl border border-[#725b52]/40 bg-[#120f0d]/88 px-2 py-3 backdrop-blur sm:px-3 ${
-            isTabsStuck
-              ? 'before:pointer-events-none before:absolute before:-top-3 before:left-0 before:right-0 before:h-3 before:bg-[#120f0d]/50 before:backdrop-blur-md'
-              : ''
-          }`}
-        >
+        <div className="sticky top-3 z-50 mt-10 rounded-3xl border border-[#725b52]/40 bg-[#120f0d]/88 px-2 py-3 backdrop-blur sm:px-3">
           <MenuTabs
             categories={menuCategories}
             activeCategory={activeCategory}

@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  font-family: 'Manrope', sans-serif;
+  --ash-brown: #725b52;
+  --mauve-bark: #62473b;
+  --dark-coffee: #513428;
+  --ember-red: #bc372b;
+  --soft-white: #fefdfe;
+  --pure-white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #120f0d;
+  color: var(--soft-white);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Teko', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+main {
+  background-image:
+    radial-gradient(circle at 5% 10%, rgba(98, 71, 59, 0.26), transparent 26%),
+    radial-gradient(circle at 95% 88%, rgba(114, 91, 82, 0.22), transparent 25%),
+    linear-gradient(180deg, #1b1613 0%, #120f0d 56%, #100d0b 100%);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.55s ease-out both;
+}
